@@ -6,7 +6,13 @@ var NuM_PLANE = 3;
 var generate_map = function() {
     
     function genZeroMap() {
-	// TODO
+	var ret = new Array();
+	for (var i = 0; i < DIM; ++i){
+	    ret[i] = new Array();
+	    for (var j = 0; j < DIM; ++j)
+		ret[i][j] = 0;
+	}
+	return ret;
     }
     
     function getRandomPlane() {
@@ -23,7 +29,7 @@ var generate_map = function() {
 
     var bitMap = genZeroMap();
     
-    var ans = [];
+    var ans = new Array();
 
     for (var i = 0; i < NUM_PLANE; ++i){
 	var plane;
