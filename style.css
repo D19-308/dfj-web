@@ -1,0 +1,13 @@
+* { margin:0; padding:0; border:0; }
+body { width:500px; margin:0 auto; }
+table { border-spacing:0; }
+td { background:#eee; border:1px solid #000; width:50px; height:50px; cursor:pointer; }
+td.empty { background:#fff; }
+td.head { background:#f00; }
+td.body { background:#ff0; }
+td:hover { border:1px solid #0f0; }
+td.revealed { cursor:crosshair; }
+td.revealed:hover { border:1px solid #000; }
+.health li { display:none; }
+.health .alive { color:#f00; }
+.health .dead { color:#eee; }
