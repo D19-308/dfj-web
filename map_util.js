@@ -15,34 +15,39 @@
             var ret = new Array();
             for (var i = 0; i < points.length; ++i){
 		var point = points[i];
-		ret.push({x: fixpoint['x'] + (point['y'] - fixpoint['y']), 
-			  y: fixpoint['y'] - (point['x'] - fixpoint['x'])});
+		ret.push({x: fixpoint['x'] - (point['y'] - fixpoint['y']), 
+			  y: fixpoint['y'] + (point['x'] - fixpoint['x'])});
             }
-            return ret;
+	    return ret;
 	}
 
-	function pointsOfUpPlane(plane) {
+	function pointsOfUpPlane(p) {
 
             var ret = new Array();
-            ret.push({x: plane['x'], y:plane['y']});
+            ret.push({x: p['x'], y:p['y']});
 
             for (var i = -2; i<= 2; ++i)
-		ret.push({x: plane['x']+i, y:plane['y']+1});
+		ret.push({x: p['x']+i, y:p['y']+1});
 
-            ret.push({x: plane['x']+2, y:plane['y']+2});
+            ret.push({x: p['x'], y: p['y']+2});
 
             for (var i = -1; i<= 1; ++i)
-		ret.push({x: plane['x']+i, y:plane['y']+3});
+		ret.push({x: p['x']+i, y:p['y']+3});
 
             return ret;
 	}
 	
 	var ret = pointsOfUpPlane(plane);
+	
 	var head = {
             x: plane['x'],
             y: plane['y']
 	};
 	
+	console.log(plane);
+	console.log(plane.x);
+	console.log(plane.y);
+	console.log(plane.d);
 	for (var i = 0; i < plane['d']; ++i)
             ret = rotate(head, ret);
 
@@ -118,13 +123,15 @@
 
             do{
 		plane = getRandomPlane();
+		//		console.log(plane);
+		console.log(occupiedByPlane(plane));
             } while(!compatible(plane, bitMap));
 
             drawPlaneToBitmap(plane, bitMap);
 
             ans[i] = plane;
 	}
-
+	console.log(ans);
 	// Add the fucking offset
 	for (var i = 0; i < ans.length; ++i){
 	    var point = ans[i];
