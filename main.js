@@ -119,7 +119,7 @@ function is_body_cell(c) {
 
 function fill_map(g, planes) {
   for (var i = 0; i < planes.length; i++) {
-    fill_map_with_plane(g, i, planes[i]);
+    console.log(fill_map_with_plane(g, i, planes[i]));
   }
 }
 
@@ -250,7 +250,8 @@ generate_table(N, N);
 var u = generate_unique_map();
 var g = blank_map();
 fill_map(g, u);
-// reveal_map(g);
+console.log(u);
+reveal_map(g);
 
 var health = [3, 3, 3];
 update_health_status(u, g, health);
