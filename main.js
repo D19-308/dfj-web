@@ -100,7 +100,7 @@ function $cell(i, j) {
 }
 
 function generate_table(rows, cols) {
-  var html = '<table>';
+  var html = '';
   for (var i = 0; i < rows; i++) {
     html += '<tr>';
     for (var j = 0; j < cols; j++) {
@@ -108,8 +108,7 @@ function generate_table(rows, cols) {
     }
     html += '</tr>';
   }
-  html += '</table>';
-  return html;
+  $('#grid').html(html);
 }
 
 function reveal_map(g) {
@@ -130,6 +129,7 @@ function reveal_cell(g, i, j) {
   else if (is_body_cell(g[i][j])) {
     $cell(i, j).addClass('body');
   }
+  $cell(i, j).removeClass('highlight');
 }
 
 function update_health_status(g, health) {
@@ -147,12 +147,11 @@ function update_health_status(g, health) {
   if (alive_count === 0) {
     reveal_map(g);
     window.alert('Game over!');
-    window.location.reload();
   }
 }
 
 //===
-document.write(generate_table(N, N));
+generate_table(N, N);
 
 var g = blank_map();
 fill_map(g, generate_map());
@@ -178,4 +177,13 @@ $('td').click(function(){
   }
   
   update_health_status(g, health);
+}).on('contextmenu', function(evt){
+  if ($(this).hasClass('highlight')) {
+    $(this).removeClass('highlight');
+  }
+  else {
+    $(this).addClass('highlight');
+  }
+  evt.preventDefault();
+  return false;
 });

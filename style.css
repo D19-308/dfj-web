@@ -1,13 +1,16 @@
-* { margin:0; padding:0; border:0; }
+* { margin:0; padding:0; border:0; list-style:none; }
 body { width:500px; margin:0 auto; }
-table { border-spacing:0; }
-td { background:#eee; border:1px solid #000; width:50px; height:50px; cursor:pointer; }
+table { clear:both; border-spacing:0; }
+td { background:#eee; border:1px solid #000; width:50px; height:50px; cursor:pointer; border-radius:100em; }
 td.empty { background:#fff; }
 td.head { background:#f00; }
 td.body { background:#ff0; }
 td:hover { border:1px solid #0f0; }
+td.highlight { border:1px solid #f00; }
 td.revealed { cursor:crosshair; }
 td.revealed:hover { border:1px solid #000; }
-.health li { display:none; }
+.health { font-size:42px; text-align:center; margin:0 auto; width:200px; height:50px; }
+.health li { display:none; float:left; width:50px; height:50px; margin-left:25px; }
+.health li.first { margin-left:0; }
 .health .alive { color:#f00; }
 .health .dead { color:#eee; }
