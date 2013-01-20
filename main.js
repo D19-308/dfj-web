@@ -242,6 +242,19 @@ function update_health_status(u, g, health) {
   }
 }
 
+function format_tick(t) {
+  var s = t % 60,
+      m = (t-s) / 60;
+  if (s < 10) s = '0' + s;
+  return m + ':' + s;
+}
+
+function tick() {
+  if (window.tick > 0) window.tick++;
+  else window.tick = 1;
+  $('#tick').text(format_tick(window.tick));
+}
+
 //===
 generate_table(N, N);
 
@@ -257,6 +270,10 @@ $('td').click(function(){
   var x = $(this).data('x'),
       y = $(this).data('y'),
       c = g[x][y];
+  
+  if (window.ticker == undefined) {
+    window.ticker = window.setInterval(tick, 1000);
+  }
   
   if ($(this).hasClass('revealed')) return;
   
@@ -289,20 +306,5 @@ $('#radius').change(function(){
   var radius = $('#radius').val();
   $('td').css('border-radius', radius + 'px');
 });
-
-function format_tick(t) {
-  var s = t % 60,
-      m = (t-s) / 60;
-  if (s < 10) s = '0' + s;
-  return m + ':' + s;
-}
-
-function tick() {
-  if (window.tick > 0) window.tick++;
-  else window.tick = 1;
-  $('#tick').text(format_tick(window.tick));
-}
-
-window.ticker = window.setInterval(tick, 1000);
 
 })(jQuery);
