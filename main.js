@@ -27,6 +27,10 @@ function random_between(lo, hi) {
 var N = 10, UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
 
 function generate_map() {
+  return window.generate_map();
+}
+
+function xjia_generate_map() {
   var g = blank_map();
   var a = [
     { x: 0, y: 0, d: LEFT }
