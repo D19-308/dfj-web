@@ -20,9 +20,15 @@
 <li class="health2 dead">✈</li>
 </ul>
 <table id="grid"></table>
-<p>Border radius: <input type="range" id="radius" min="0" max="25" step="1" value="10"></p>
+<p id="slider">Cell radius: <input type="range" id="radius" min="0" max="25" step="1" value="10"></p>
 <span id="revealed-count"></span>
 <span id="tick">0:00</span>
+<p id="hint">
+  Find and hit the planes<br>
+  1 click marks a cell<br>
+  2 clicks open a cell<br>
+  Right click toggles mark
+</p>
 <script src="json2.js"></script>
 <script src="http://code.jquery.com/jquery-1.9.0.min.js"></script>
 <script src="md5-min.js"></script>
