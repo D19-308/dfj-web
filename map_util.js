@@ -49,7 +49,7 @@
 	return ret;
     }
 
-    function generate_map() {
+    function generateMap() {
 	
 	function genZeroMap() {
             var ret = new Array();
@@ -146,4 +146,6 @@
 	}
 	return ans;
     };
+    
+    window.generate_map = generateMap;
 })();
