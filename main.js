@@ -20,14 +20,36 @@ function set_cookie(c_name, value, exdays) {
   document.cookie = c_name + "=" + c_value;
 }
 
+function random_between(lo, hi) {
+  return Math.floor((Math.random() * (hi - lo)) + lo);;
+}
+
 var N = 10, UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
 
 function generate_map() {
-  return [
+  var g = blank_map();
+  var a = [
     { x: 0, y: 0, d: LEFT }
   , { x: 3, y: 3, d: UP }
   , { x: 5, y: 0, d: RIGHT }
   ];
+  for (var i = 0; i < 3; i++) {
+    generate_plane(g, i, a[i]);
+  }
+  return a;
+}
+
+function random_plane(a) {
+  a.x = random_between(0, N-1);
+  a.y = random_between(0, N-1);
+  a.d = random_between(0, 3);
+}
+
+function generate_plane(g, i, a) {
+  random_plane(a);
+  while (!fill_map_with_plane(g, i, a)) {
+    random_plane(a);
+  }
 }
 
 function map_hash(g) {
@@ -125,7 +147,22 @@ var PLANES = [
 function fill_map_with_plane(g, k, plane) {
   var p = PLANES[plane.d],
       x = plane.x,
-      y = plane.y;
+      y = plane.y,
+      h = p.length,
+      w = p[0].length;
+  
+  if (h+x > N || w+y > N) return false;
+  
+  for (var i = 0; i < p.length; i++) {
+    for (var j = 0; j < p[i].length; j++) {
+      if (p[i][j] === 'o' || p[i][j] === 'x') {
+        if (!is_empty_cell(g[i+x][j+y])) {
+          return false;
+        }
+      }
+    }
+  }
+  
   for (var i = 0; i < p.length; i++) {
     for (var j = 0; j < p[i].length; j++) {
       if (p[i][j] === 'o') {
@@ -136,6 +173,7 @@ function fill_map_with_plane(g, k, plane) {
       }
     }
   }
+  return true;
 }
 
 function cell_id(i, j) {
@@ -208,6 +246,7 @@ generate_table(N, N);
 var u = generate_unique_map();
 var g = blank_map();
 fill_map(g, u);
+reveal_map(g);
 
 var health = [3, 3, 3];
 update_health_status(u, g, health);
