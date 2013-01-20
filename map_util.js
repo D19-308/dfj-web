@@ -1,4 +1,4 @@
-(function($) {
+(function() {
     // Define direction
     var UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3, LAST_D = 4;
     var DIM = 10;
