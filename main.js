@@ -246,7 +246,7 @@ generate_table(N, N);
 var u = generate_unique_map();
 var g = blank_map();
 fill_map(g, u);
-reveal_map(g);
+// reveal_map(g);
 
 var health = [3, 3, 3];
 update_health_status(u, g, health);
