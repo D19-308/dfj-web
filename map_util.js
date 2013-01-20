@@ -44,10 +44,6 @@
             y: plane.y
 	};
 	
-  // console.log(plane);
-  // console.log(plane.x);
-  // console.log(plane.y);
-  // console.log(plane.d);
 	for (var i = 0; i < plane.d; ++i)
             ret = rotate(head, ret);
 
@@ -123,15 +119,12 @@
 
             do{
 		plane = getRandomPlane();
-		//		console.log(plane);
-    // console.log(occupiedByPlane(plane));
             } while(!compatible(plane, bitMap));
 
             drawPlaneToBitmap(plane, bitMap);
 
             ans[i] = plane;
 	}
-	// console.log(ans);
 	// Add the fucking offset
 	for (var i = 0; i < ans.length; ++i){
 	    var point = ans[i];

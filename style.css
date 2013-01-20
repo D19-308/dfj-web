@@ -17,3 +17,5 @@ td.revealed:hover { border:1px solid #000; }
 .health li.first { margin-left:0; }
 .health .alive { color:#f00; }
 .health .dead { color:#eee; }
+.left {float:left}
+.right {float:right}

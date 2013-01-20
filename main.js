@@ -247,6 +247,7 @@ function update_health_status(u, g, health) {
 //===
 generate_table(N, N);
 
+var total_steps = 0;
 var u = generate_unique_map();
 var g = blank_map();
 fill_map(g, u);
@@ -265,6 +266,8 @@ $('td').click(function(){
   
   reveal_cell(g, x, y);
   
+  $("#steps").text(++total_steps);
+
   if (is_head_cell(c)) {
     health[c.id] = 0;
   }
