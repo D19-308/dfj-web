@@ -1,3 +1,25 @@
+(function($){
+
+function get_cookie(c_name) {
+  var i, x, y, ARRcookies = document.cookie.split(";");
+  for (i = 0; i < ARRcookies.length; i++) {
+    x = ARRcookies[i].substr(0,ARRcookies[i].indexOf("="));
+    y = ARRcookies[i].substr(ARRcookies[i].indexOf("=") + 1);
+    x = x.replace(/^\s+|\s+$/g, "");
+    if (x == c_name) {
+      return unescape(y);
+    }
+  }
+  return null;
+}
+
+function set_cookie(c_name, value, exdays) {
+  var c_value, exdate = new Date();
+  exdate.setDate(exdate.getDate() + exdays);
+  c_value = escape(value) + ((exdays == null) ? "" : "; expires=" + exdate.toUTCString());
+  document.cookie = c_name + "=" + c_value;
+}
+
 var N = 10, UP = 0, RIGHT = 1, DOWN = 2, LEFT = 3;
 
 function generate_map() {
@@ -6,6 +28,26 @@ function generate_map() {
   , { x: 3, y: 3, d: UP }
   , { x: 5, y: 0, d: RIGHT }
   ];
+}
+
+function map_hash(g) {
+  return hex_md5(JSON.stringify(g));
+}
+
+function already_played(h) {
+  var played = JSON.parse(get_cookie('played'));
+  console.log(played);
+  return $.inArray(h, played) !== -1;
+}
+
+function generate_unique_map() {
+  var g = generate_map();
+  console.log(map_hash(g));
+  while (already_played(map_hash(g))) {
+    g = generate_map();
+    break;
+  }
+  return g;
 }
 
 function blank_map() {
@@ -84,7 +126,6 @@ function fill_map_with_plane(g, k, plane) {
         g[i+x][j+y] = head_cell(k);
       }
       if (p[i][j] === 'x') {
-        console.log(i + " " + j + " " + x + " " + y);
         g[i+x][j+y] = body_cell(k);
       }
     }
@@ -132,7 +173,7 @@ function reveal_cell(g, i, j) {
   $cell(i, j).removeClass('highlight');
 }
 
-function update_health_status(g, health) {
+function update_health_status(u, g, health) {
   var alive_count = 0;
   for (var i = 0; i < health.length; i++) {
     $('.health' + i).hide();
@@ -145,6 +186,12 @@ function update_health_status(g, health) {
     }
   }
   if (alive_count === 0) {
+    var played = JSON.parse(get_cookie('played'));
+    if (played === null) played = [];
+    played.push(map_hash(u));
+    set_cookie('played', played, 7);
+    console.log(played);
+    
     reveal_map(g);
     window.alert('Game over!');
   }
@@ -153,11 +200,12 @@ function update_health_status(g, health) {
 //===
 generate_table(N, N);
 
+var u = generate_unique_map();
 var g = blank_map();
-fill_map(g, generate_map());
+fill_map(g, u);
 
 var health = [3, 3, 3];
-update_health_status(g, health);
+update_health_status(u, g, health);
 
 $('td').click(function(){
   var x = $(this).data('x'),
@@ -176,7 +224,7 @@ $('td').click(function(){
     health[c.id]--;
   }
   
-  update_health_status(g, health);
+  update_health_status(u, g, health);
 }).on('contextmenu', function(evt){
   if ($(this).hasClass('highlight')) {
     $(this).removeClass('highlight');
@@ -187,3 +235,5 @@ $('td').click(function(){
   evt.preventDefault();
   return false;
 });
+
+})(jQuery);
