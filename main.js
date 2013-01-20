@@ -282,4 +282,9 @@ $('td').click(function(){
   return false;
 });
 
+$('#radius').change(function(){
+  var radius = $('#radius').val();
+  $('td').css('border-radius', radius + 'px');
+});
+
 })(jQuery);
