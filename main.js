@@ -233,12 +233,15 @@ $('td').click(function(){
   
   update_health_status(u, g, health);
 }).on('contextmenu', function(evt){
+  if ($(this).hasClass('revealed')) return;
+  
   if ($(this).hasClass('highlight')) {
     $(this).removeClass('highlight');
   }
   else {
     $(this).addClass('highlight');
   }
+  
   evt.preventDefault();
   return false;
 });
