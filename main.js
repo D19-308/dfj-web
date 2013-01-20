@@ -271,15 +271,15 @@ $('td').click(function(){
       y = $(this).data('y'),
       c = g[x][y];
   
-  if (window.ticker == undefined) {
-    window.ticker = window.setInterval(tick, 1000);
-  }
-  
   if ($(this).hasClass('revealed')) return;
   
   if ($(this).hasClass('highlight')) {
     $(this).removeClass('highlight');
   
+    if (window.ticker == undefined) {
+      window.ticker = window.setInterval(tick, 1000);
+    }
+
     reveal_cell(g, x, y);
   
     if (is_head_cell(c)) {
