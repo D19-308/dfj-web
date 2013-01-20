@@ -49,11 +49,11 @@ function already_played(h) {
 }
 
 function generate_unique_map() {
-  var g = generate_map();
+  var g = generate_map(), i = 0;
   console.log(map_hash(g));
-  while (already_played(map_hash(g))) {
+  while (already_played(map_hash(g)) && i < 100) {
     g = generate_map();
-    break;
+    i++;
   }
   return g;
 }
@@ -198,7 +198,6 @@ function update_health_status(u, g, health) {
     if (played === null) played = [];
     played.push(map_hash(u));
     set_played(played);
-    console.log(played);
     
     reveal_map(g);
     window.alert('Game over!');
