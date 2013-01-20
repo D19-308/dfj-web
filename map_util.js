@@ -126,7 +126,8 @@
 	}
 
 	// Add the fucking offset
-	for (var point in ans){
+	for (var i = 0; i < ans.length; ++i){
+	    var point = ans[i];
             switch(point['d']){
             case UP:
 		point['x'] -= 2;
