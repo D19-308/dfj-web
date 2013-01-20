@@ -17,3 +17,4 @@ td.revealed:hover { border:1px solid #000; }
 .health li.first { margin-left:0; }
 .health .alive { color:#f00; }
 .health .dead { color:#eee; }
+#revealed-count { position:absolute; top:0; left:50%; margin-left:300px; font-size:90px; }

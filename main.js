@@ -214,7 +214,7 @@ function reveal_cell(g, i, j) {
   else if (is_body_cell(g[i][j])) {
     $cell(i, j).addClass('body');
   }
-  $cell(i, j).removeClass('highlight');
+  $cell(i, j).addClass('revealed');
 }
 
 function update_health_status(u, g, health) {
@@ -229,6 +229,7 @@ function update_health_status(u, g, health) {
       $('.dead.health' + i).show();
     }
   }
+  $('#revealed-count').text($('.revealed').length);
   if (alive_count === 0) {
     var played = get_played();
     if (played === null) played = [];
@@ -257,26 +258,27 @@ $('td').click(function(){
       c = g[x][y];
   
   if ($(this).hasClass('revealed')) return;
-  $(this).addClass('revealed');
   
-  reveal_cell(g, x, y);
+  if ($(this).hasClass('highlight')) {
+    $(this).removeClass('highlight');
   
-  if (is_head_cell(c)) {
-    health[c.id] = 0;
+    reveal_cell(g, x, y);
+  
+    if (is_head_cell(c)) {
+      health[c.id] = 0;
+    }
+    else if (is_body_cell(c)) {
+      health[c.id]--;
+    }
+  
+    update_health_status(u, g, health);
   }
-  else if (is_body_cell(c)) {
-    health[c.id]--;
+  else {
+    $(this).addClass('highlight');
   }
-  
-  update_health_status(u, g, health);
 }).on('contextmenu', function(evt){
   if (!$(this).hasClass('revealed')) {
-    if ($(this).hasClass('highlight')) {
-      $(this).removeClass('highlight');
-    }
-    else {
-      $(this).addClass('highlight');
-    }
+    $(this).toggleClass('highlight');
   }
   evt.preventDefault();
   return false;
