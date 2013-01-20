@@ -151,6 +151,7 @@
 		point.y -= 2;
 		break;
             }
+            var temp = point.x; point.x = point.y; point.y = temp;
 	}
 	return ans;
     };
