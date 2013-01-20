@@ -44,13 +44,11 @@ function set_played(played) {
 
 function already_played(h) {
   var played = get_played();
-  console.log(played);
   return $.inArray(h, played) !== -1;
 }
 
 function generate_unique_map() {
   var g = generate_map(), i = 0;
-  console.log(map_hash(g));
   while (already_played(map_hash(g)) && i < 100) {
     g = generate_map();
     i++;
