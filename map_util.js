@@ -15,8 +15,8 @@
             var ret = new Array();
             for (var i = 0; i < points.length; ++i){
 		var point = points[i];
-		ret.push({x: fixpoint['x'] - (point['y'] - fixpoint['y']), 
-			  y: fixpoint['y'] + (point['x'] - fixpoint['x'])});
+		ret.push({x: fixpoint.x - (point.y - fixpoint.y), 
+			  y: fixpoint.y + (point.x - fixpoint.x)});
             }
 	    return ret;
 	}
@@ -24,15 +24,15 @@
 	function pointsOfUpPlane(p) {
 
             var ret = new Array();
-            ret.push({x: p['x'], y:p['y']});
+            ret.push({x: p.x, y:p.y});
 
             for (var i = -2; i<= 2; ++i)
-		ret.push({x: p['x']+i, y:p['y']+1});
+		ret.push({x: p.x+i, y:p.y+1});
 
-            ret.push({x: p['x'], y: p['y']+2});
+            ret.push({x: p.x, y: p.y+2});
 
             for (var i = -1; i<= 1; ++i)
-		ret.push({x: p['x']+i, y:p['y']+3});
+		ret.push({x: p.x+i, y:p.y+3});
 
             return ret;
 	}
@@ -40,15 +40,15 @@
 	var ret = pointsOfUpPlane(plane);
 	
 	var head = {
-            x: plane['x'],
-            y: plane['y']
+            x: plane.x,
+            y: plane.y
 	};
 	
 	console.log(plane);
 	console.log(plane.x);
 	console.log(plane.y);
 	console.log(plane.d);
-	for (var i = 0; i < plane['d']; ++i)
+	for (var i = 0; i < plane.d; ++i)
             ret = rotate(head, ret);
 
 	return ret;
@@ -72,8 +72,8 @@
 		var points = occupiedByPlane(plane);
 		for (var i = 0; i < points.length; ++i) {
                     var pair = points[i];
-                    if (pair['x'] < 0 || pair['x'] >= DIM ||
-			pair['y'] < 0 || pair['y'] >= DIM)
+                    if (pair.x < 0 || pair.x >= DIM ||
+			pair.y < 0 || pair.y >= DIM)
 			return true;
 		}
 		return false;
@@ -100,7 +100,7 @@
             var points = occupiedByPlane(plane);
             for (var i = 0; i < points.length; ++i){
 		var pair = points[i];
-		if (bitmap[pair['x']][pair['y']] == 1)
+		if (bitmap[pair.x][pair.y] == 1)
                     return false;
             }
             return true;
@@ -110,7 +110,7 @@
             var points = occupiedByPlane(plane);
             for (var i = 0; i < points.length; ++i){
 		var pair = points[i];
-		bitmap[pair['x']][pair['y']] = 1;
+		bitmap[pair.x][pair.y] = 1;
             }
 	}
 
@@ -135,21 +135,21 @@
 	// Add the fucking offset
 	for (var i = 0; i < ans.length; ++i){
 	    var point = ans[i];
-            switch(point['d']){
+            switch(point.d){
             case UP:
-		point['x'] -= 2;
+		point.x -= 2;
 		break;
             case RIGHT:
-		point['x'] -= 3;
-		point['y'] -= 2;
+		point.x -= 3;
+		point.y -= 2;
 		break;
             case DOWN:
-		point['x'] -= 2;
-		point['y'] -= 3;
+		point.x -= 2;
+		point.y -= 3;
 		break;
             case LEFT:
-		point['y'] -= 2;
-		break; 
+		point.y -= 2;
+		break;
             }
 	}
 	return ans;
