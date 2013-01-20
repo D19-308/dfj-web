@@ -34,8 +34,16 @@ function map_hash(g) {
   return hex_md5(JSON.stringify(g));
 }
 
+function get_played() {
+  return JSON.parse(get_cookie('played'));
+}
+
+function set_played(played) {
+  set_cookie('played', JSON.stringify(played), 7);
+}
+
 function already_played(h) {
-  var played = JSON.parse(get_cookie('played'));
+  var played = get_played();
   console.log(played);
   return $.inArray(h, played) !== -1;
 }
@@ -186,10 +194,10 @@ function update_health_status(u, g, health) {
     }
   }
   if (alive_count === 0) {
-    var played = JSON.parse(get_cookie('played'));
+    var played = get_played();
     if (played === null) played = [];
     played.push(map_hash(u));
-    set_cookie('played', played, 7);
+    set_played(played);
     console.log(played);
     
     reveal_map(g);
