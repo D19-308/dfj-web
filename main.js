@@ -237,7 +237,8 @@ function update_health_status(u, g, health) {
     set_played(played);
     
     reveal_map(g);
-    window.alert('Game over!');
+    window.clearInterval(window.ticker);
+    window.alert('Game over! Refresh to play again.');
   }
 }
 
@@ -288,5 +289,20 @@ $('#radius').change(function(){
   var radius = $('#radius').val();
   $('td').css('border-radius', radius + 'px');
 });
+
+function format_tick(t) {
+  var s = t % 60,
+      m = (t-s) / 60;
+  if (s < 10) s = '0' + s;
+  return m + ':' + s;
+}
+
+function tick() {
+  if (window.tick > 0) window.tick++;
+  else window.tick = 1;
+  $('#tick').text(format_tick(window.tick));
+}
+
+window.ticker = window.setInterval(tick, 1000);
 
 })(jQuery);
